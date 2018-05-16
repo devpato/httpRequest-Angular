@@ -41,8 +41,8 @@ export class AppComponent {
       (error)=> console.log(error)
     );
   }
-  
-  getServers() {
+
+ onGet() {
     this.serverService.getServers().subscribe(
       (res : Response)=> {
         const data = res.json()
