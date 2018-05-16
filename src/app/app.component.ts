@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ServerService } from './server.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,10 @@ export class AppComponent {
     });
   }
 
+  private generateId() {
+    return Math.round(Math.random() * 10000);
+  }
+
   onSave() {
     this.serverService.storeServers(this.servers)
     .subscribe(
@@ -36,8 +41,16 @@ export class AppComponent {
       (error)=> console.log(error)
     );
   }
-
-  private generateId() {
-    return Math.round(Math.random() * 10000);
+  
+  getServers() {
+    this.serverService.getServers().subscribe(
+      (res : Response)=> {
+        const data = res.json()
+        console.log(data)     
+      },
+      (error) => console.log(error)
+    );
   }
+
+ 
 }

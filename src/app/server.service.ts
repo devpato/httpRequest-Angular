@@ -10,4 +10,8 @@ export class ServerService {
         return this.http.post('https://http-tamo.firebaseio.com/data.json', servers);
     }
 
+    getServers() {
+        return this.http.get('https://http-tamo.firebaseio.com/data.json');
+    }
+
 }
