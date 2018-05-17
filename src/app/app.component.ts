@@ -10,6 +10,7 @@ import { Response } from '@angular/http';
 export class AppComponent {
 
   constructor(private serverService: ServerService){}
+  
   servers = [
     {
       name: 'Testserver',
@@ -22,16 +23,17 @@ export class AppComponent {
       id: this.generateId()
     }
   ];
+
+  private generateId() {
+    return Math.round(Math.random() * 10000);
+  }
+
   onAddServer(name: string) {
     this.servers.push({
       name: name,
       capacity: 50,
       id: this.generateId()
     });
-  }
-
-  private generateId() {
-    return Math.round(Math.random() * 10000);
   }
 
   onSave() {
@@ -42,13 +44,18 @@ export class AppComponent {
     );
   }
 
- onGet() {
+  onGet() {
     this.serverService.getServers().subscribe(
-      (res : Response)=> {
-        const data = res.json()
-        console.log(data)     
-      },
+      (servers : any[])=> console.log(servers),
       (error) => console.log(error)
+    );
+  }
+
+  onUpdate() {
+    this.serverService.updateServers(this.servers)
+    .subscribe(
+      (res)=> console.log(res) , 
+      (error)=> console.log(error)
     );
   }
 

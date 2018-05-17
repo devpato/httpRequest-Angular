@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core'
-import { Http } from '@angular/http'
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class ServerService {
@@ -11,7 +12,17 @@ export class ServerService {
     }
 
     getServers() {
-        return this.http.get('https://http-tamo.firebaseio.com/data.json');
+        return this.http.get('https://http-tamo.firebaseio.com/data.json')
+            .map(
+                (res: Response)=>{
+                    const data = res.json();
+                    return data;
+                }
+            );
+    }
+
+    updateServers(servers: any[]) {
+        return this.http.put('https://http-tamo.firebaseio.com/data.json', servers);
     }
 
 }
