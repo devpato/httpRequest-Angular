@@ -8,9 +8,10 @@ import { Response } from '@angular/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-  constructor(private serverService: ServerService){}
   
+  appName = this.serverService.getAppName();;
+  constructor(private serverService: ServerService){}
+
   servers = [
     {
       name: 'Testserver',
@@ -60,7 +61,7 @@ export class AppComponent {
       (res)=> console.log(res) , 
       (error)=> console.log(error)
     );
-  }
+  } 
 
- 
+
 }
